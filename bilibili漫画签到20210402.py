@@ -3,31 +3,13 @@ import requests
 import json
 import time
 import locale
-cookie = 'SESSDATA=fe76a1d2%2C1632889636%2Ce5f6b%2A41; bili_jct=995ab024c6eaeb3c69e2adcdf41aeac2;'
+cookie = "在网站上登录一下 按F12去找一下cookies"
 headers = {
 	'User-Agent': 'Mozilla/5.0 BiliComic/2.10.0'
 }
 Body = {"platform": "android"}
 session = requests.session()
-SCKEY = 'SCT15277TKlrhzjwElexzNJAFh3R05LFu'
-def pushWechat(code,status,day_count,points):
-	ssckey = SCKEY
-	send_url = 'http://sctapi.ftqq.com/'+ SCKEY +'.send'
-	if code == 0 and status!=1 :
-		params = {
-			'title': 'bilibili签到成功',
-			'desp': '连续'+str(day_count)+'天签到\n''积分增加'+str(points)+'分'
-		}
-	elif status == 1:
-		params = {
-			'title': 'bilibili已经签到了',
-			'desp': '连续'+str(day_count)+'天签到\n''积分增加'+str(points)+'分'
-		}
-	else:
-		params = {
-			'title': 'bilibili签到失败',
-		}
-	data = requests.post(send_url,headers=headers, data=params).content.decode()
+
 #定义一个把cookie 转cookiejar的函数
 def extract_cookiejar(cookie):
 	cookies = dict([l.split("=",1)for l in cookie.split("; ")])
@@ -49,13 +31,13 @@ bilibili_data = bilibili_manhua_response.content.decode()
 qiandao_list = json.loads((bilibili_data))
 bilibili_manhua_qiandaoxinxi_data = session.post(bilibili_manhua_qiandaoxinxi_url,headers=headers).content.decode()
 qiandaoxinxi_list = json.loads(bilibili_manhua_qiandaoxinxi_data)
+
 print(qiandaoxinxi_list)
+
 status = qiandaoxinxi_list['data']['status']
 day_count = qiandaoxinxi_list['data']['day_count']
 points = qiandaoxinxi_list['data']['points'][day_count%7]
 code = qiandao_list['code']
-
-pushWechat(code,status,day_count,points)
 
 if code == 0:
 	print('签到成功，连续'+str(day_count)+'天签到\n''积分增加'+str(points)+'分')

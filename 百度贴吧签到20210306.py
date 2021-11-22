@@ -5,7 +5,7 @@ import time
 import json
 import locale
 
-cookie = 'BIDUPSID=DFF2BC67150495EEC1816CA765B32156; PSTM=1611218412; BAIDUID=DFF2BC67150495EE1EC853290832AD33:FG=1; H_PS_PSSID=33425_33402_33259_33272_33284_33287_33463_26350_22157; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; __yjs_duid=1_ecff9c890114a3b07b59f79eef0165f71611219952560; delPer=0; PSINO=5; ZD_ENTRY=baidu; BAIDUID_BFESS=296A40398CBAE7F4179E5F3439474ACE:FG=1; wise_device=0; bdshare_firstime=1611237615938; st_key_id=17; st_data=73debca1e2b8a23870beb29591b89056dccb4e018a686a9612424669a0decc9254827811ab45dfc8a10efe25631a3cd2ab10b7c05f01f774d4fd42a28a5bcc30a2a3401c55928aa191b11926dbe182c8a5d76e6a26cb98e7c2d84e25452285ff7b2ab2dc8fc40086370c1da3989eaa08f0313c1433756e096a59ad1b0936f0f5; st_sign=67bf8ae7; ab_sr=1.0.0_OGZiODdjZGUwOTM1OGIzYTA5MWIzOTQ5NWMyZTM0ZjYxNjE2YjJlNWFmYTgyYWJjOTZiZTVmNTlmZmYxZTBjMjBkMTQxZDU4YzFlNmRkMTMxNDBkN2Y1NjU4M2ZjMzQz; BA_HECTOR=a4258g04848l8k05g81g0j33n0q; Hm_lvt_98b9d8c2fd6608d564bf2ac2ae642948=1611237616,1611238315,1611238521; Hm_lpvt_98b9d8c2fd6608d564bf2ac2ae642948=1611238521; BDUSS=RjS042dFU4LW9DUFd5T09VVER0OE5SRjNBTEVIdXowSUhKT2E5bk1ZaVRHVEZnSVFBQUFBJCQAAAAAAAAAAAEAAAAcnrxDsKLLubbZttkxMjEyMzEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJOMCWCTjAlgMm; BDUSS_BFESS=RjS042dFU4LW9DUFd5T09VVER0OE5SRjNBTEVIdXowSUhKT2E5bk1ZaVRHVEZnSVFBQUFBJCQAAAAAAAAAAAEAAAAcnrxDsKLLubbZttkxMjEyMzEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJOMCWCTjAlgMm; STOKEN=4572d05006fccff208139bd9db8bf638e01510a589f6ceb27a7490f623a6f980'
+cookie = "在网站上登录一下 按F12去找一下cookies"
 headers = {
 	    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36'
 }
@@ -20,15 +20,6 @@ def extract_cookiejar(cookie):
 	cookies = dict([l.split("=",1)for l in cookie.split("; ")])
 	return cookies
 
-SCKEY = 'SCT15277TKlrhzjwElexzNJAFh3R05LFu'
-def pushWechat(nowtime,count,count2):
-	ssckey = SCKEY
-	send_url = 'http://sctapi.ftqq.com/'+ssckey+'.send'
-	params = {
-		'title': '贴吧签到成功' ,
-		'desp':'成功签到'+count+'个 总共'+count2+'个'+ nowtime,
-	}
-	requests.post(send_url, params=params)
 
 
 #定义一个每日凌晨五点自动签到
@@ -100,7 +91,6 @@ def tieba_qiandao():
 		if finall['no']==0 :
 			count = count + 1
 		print(tb_name+"吧↓\n"+finall['error'])
-	pushWechat(local_time,str(count),str(count2))
 
 
 print(time.strftime('%H:%M'))
